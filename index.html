@@ -105,8 +105,9 @@
       const el = document.createElement("div");
       el.className = tipo;
       el.textContent = contenido;
-      el.style.left = Math.random() * 100 + "vw";
-      el.style.top = "-5vh";
+      el.style.position = "absolute";
+      el.style.left = Math.random() * window.innerWidth + "px";
+      el.style.top = "-50px";
       el.style.fontSize = (Math.random() * 1 + 1.2) + "em";
       el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
       el.style.color = "rgba(255, 192, 203, 0.15)";

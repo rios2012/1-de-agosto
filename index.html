@@ -35,13 +35,14 @@
     }
 
     .palabra, .corazon {
-      position: absolute;
-      font-size: 1.5em;
-      opacity: 0.8;
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-      animation: flotar 10s linear forwards;
+       position: absolute;
+  font-size: 1.5em;
+  opacity: 0.9;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  animation: flotar 12s linear forwards; /* animación más suave */
+  font-weight: bold;
     }
 
     .corazon {
@@ -132,8 +133,8 @@
       el.style.top = "-5vh";
       el.style.fontSize = (Math.random() * 1 + 1.2) + "em";
       el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
-      el.style.color = "rgba(255, 192, 203, 0.15)";
-      el.style.textShadow = "0 0 5px rgba(255, 182, 193, 0.5)";
+     el.style.color = "rgba(255, 182, 193, 0.95)";
+     el.style.textShadow = "0 0 3px #fff, 0 0 8px #ff69b4";
       Object.assign(el.style, estiloExtra);
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 10000);

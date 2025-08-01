@@ -2,20 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Evita que la pantalla se aleje o haga zoom automáticamente -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Feliz Día de la Novia</title>
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #000000;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
+      background: #000;
       font-family: 'Segoe Script', cursive;
+      position: relative;
     }
 
     .frase-central {
@@ -23,7 +21,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4em;
+      font-size: 3em;
       color: #ffb6c1;
       text-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
       text-align: center;
@@ -38,21 +36,19 @@
 
     .palabra, .corazon {
       position: absolute;
-      font-size: 1.5em;
       opacity: 0.8;
       white-space: nowrap;
-      user-select: none;
       pointer-events: none;
       animation: flotar 10s linear forwards;
     }
 
     .corazon {
-      font-size: 2em;
+      font-size: 1.8em;
     }
 
     .explosion {
       position: absolute;
-      font-size: 1.2em;
+      font-size: 1em;
       color: white;
       text-shadow: 0 0 8px #ff69b4;
       opacity: 1;
@@ -124,23 +120,26 @@
       const el = document.createElement("div");
       el.className = tipo;
       el.textContent = contenido;
-      el.style.left = Math.random() * window.innerWidth + "px";
+
+      // Ahora distribuimos mejor el ancho
+      el.style.left = Math.random() * 100 + "%";
       el.style.top = "-50px";
       el.style.fontSize = (Math.random() * 1 + 1.2) + "em";
       el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
-      el.style.color = "rgba(255, 192, 203, 0.15)";
+      el.style.color = "rgba(255, 182, 193, 0.15)";
       el.style.textShadow = "0 0 5px rgba(255, 182, 193, 0.5)";
       Object.assign(el.style, estiloExtra);
+
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 10000);
     }
 
     function lanzarLluvia() {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 20; i++) {
         const frase = frases[Math.floor(Math.random() * frases.length)];
         crearElemento("palabra", frase);
       }
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         const corazon = corazones[Math.floor(Math.random() * corazones.length)];
         crearElemento("corazon", corazon, {
           color: "rgba(255, 105, 180, 0.3)",
@@ -163,7 +162,7 @@
     });
 
     function esVertical() {
-      return window.innerHeight > window.innerWidth;
+      return window.innerHeight >= window.innerWidth;
     }
 
     function manejarOrientacion() {
@@ -186,10 +185,8 @@
       document.querySelectorAll(".palabra, .corazon").forEach(el => el.remove());
     }
 
-    // Detectar cambios de orientación
     window.addEventListener("resize", manejarOrientacion);
-    manejarOrientacion(); // Llamada inicial
-
+    manejarOrientacion();
   </script>
 </body>
 </html>

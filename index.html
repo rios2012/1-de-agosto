@@ -55,7 +55,29 @@
       animation: explotar 1s ease-out forwards;
       pointer-events: none;
     }
+.frase-central {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
 
+.frase-central .linea1 {
+  font-size: 6vw; /* se adapta al ancho de la pantalla */
+  color: #ffb6c1;
+  text-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
+  white-space: nowrap;
+}
+
+.frase-central .linea2 {
+  font-size: 4vw;
+  margin-top: 10px;
+  color: #ffc0cb;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+  white-space: nowrap;
+}
     @keyframes flotar {
       0% {
         transform: translateY(-50px) rotate(0deg);
@@ -93,8 +115,9 @@
 <body>
 
   <div class="frase-central">
-    Feliz Día<br><small>❤️ de la Novia ❤️</small>
-  </div>
+  <div class="linea1">Feliz Día</div>
+  <div class="linea2">❤️ de la Novia ❤️</div>
+</div>
 
   <div class="mensaje-orientacion" id="mensajeOrientacion">
     🔄 Gira tu celular a modo vertical para ver la magia 💖

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Día de la Novia</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000; /* Fondo negro sólido */
+      overflow: hidden;
+      font-family: 'Segoe Script', cursive;
+    }
+
+    .frase-central {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4em;
+      color: #ffb6c1;
+      text-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .frase-central small {
+      font-size: 0.4em;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .palabra, .corazon {
+      position: absolute;
+      font-size: 1.5em;
+      opacity: 0.8;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      animation: flotar 10s linear forwards;
+    }
+
+    .corazon {
+      font-size: 2em;
+    }
+
+    .explosion {
+      position: absolute;
+      font-size: 1.2em;
+      color: white;
+      text-shadow: 0 0 8px #ff69b4;
+      opacity: 1;
+      animation: explotar 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes explotar {
+      0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5) translateY(-50px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="frase-central">
+    Feliz Día<br><small>❤️ de la Novia ❤️</small>
+  </div>
+
+  <script>
+    const frases = [
+      "Amor eterno", "Te Amo", "Eres mi vida", "Contigo siempre",
+      "Mi princesa", "Nuestro amor", "Mi todo", "Tu sonrisa", "Mi cielo"
+    ];
+
+    const corazones = ["❤️","🌻", "💖", "🌷", "💕", "🌼","💓","💐", "💘","🌻", "💗", "💞", "🌹", "💞"];
+
+    const frasesBonitas = [
+      "Eres especial","❤️", "Mi corazón es tuyo","🌻", "Tu sonrisa ilumina todo","💘",
+      "Gracias por existir","❤️", "Te pienso siempre","🌻", "Eres mi mundo","💘",
+      "Te llevo en el alma","❤️", "Mi razón de ser","🌻", "Contigo todo es mejor","💘", "Siempre tú"
+    ];
+
+    function crearElemento(tipo, contenido, estiloExtra = {}) {
+      const el = document.createElement("div");
+      el.className = tipo;
+      el.textContent = contenido;
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.top = "-5vh";
+      el.style.fontSize = (Math.random() * 1 + 1.2) + "em";
+      el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+      el.style.color = "rgba(255, 192, 203, 0.15)";
+      el.style.textShadow = "0 0 5px rgba(255, 182, 193, 0.5)";
+      Object.assign(el.style, estiloExtra);
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 10000);
+    }
+
+    function lanzarLluvia() {
+      for (let i = 0; i < 10; i++) {
+        const frase = frases[Math.floor(Math.random() * frases.length)];
+        crearElemento("palabra", frase);
+      }
+
+      for (let i = 0; i < 10; i++) {
+        const corazon = corazones[Math.floor(Math.random() * corazones.length)];
+        crearElemento("corazon", corazon, {
+          color: "rgba(255, 105, 180, 0.3)",
+          textShadow: "0 0 10px rgba(255,105,180,0.5)"
+        });
+      }
+    }
+
+    // 💥 EXPLOSIÓN AL CLIC
+    document.addEventListener("click", (e) => {
+      for (let i = 0; i < 10; i++) {
+        const expl = document.createElement("div");
+        expl.className = "explosion";
+        expl.style.left = (e.clientX + Math.random() * 100 - 50) + "px";
+        expl.style.top = (e.clientY + Math.random() * 100 - 50) + "px";
+        expl.textContent = frasesBonitas[Math.floor(Math.random() * frasesBonitas.length)];
+        document.body.appendChild(expl);
+        setTimeout(() => expl.remove(), 1000);
+      }
+    });
+
+    setInterval(lanzarLluvia, 1500);
+    lanzarLluvia();
+  </script>
+</body>
+</html>

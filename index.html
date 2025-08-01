@@ -11,7 +11,7 @@
     }
 
     body {
-      background: #000000; /* Fondo negro sólido */
+      background: #000000;
       overflow: hidden;
       font-family: 'Segoe Script', cursive;
     }
@@ -79,12 +79,27 @@
         opacity: 0;
       }
     }
+
+    .mensaje-orientacion {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #ffb6c1;
+      font-size: 1em;
+      z-index: 20;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <div class="frase-central">
     Feliz Día<br><small>❤️ de la Novia ❤️</small>
+  </div>
+
+  <div class="mensaje-orientacion" id="mensajeOrientacion">
+    Gira tu celular a modo vertical para ver la magia 💖
   </div>
 
   <script>
@@ -101,11 +116,12 @@
       "Te llevo en el alma","❤️", "Mi razón de ser","🌻", "Contigo todo es mejor","💘", "Siempre tú"
     ];
 
+    let intervaloLluvia;
+
     function crearElemento(tipo, contenido, estiloExtra = {}) {
       const el = document.createElement("div");
       el.className = tipo;
       el.textContent = contenido;
-      el.style.position = "absolute";
       el.style.left = Math.random() * window.innerWidth + "px";
       el.style.top = "-50px";
       el.style.fontSize = (Math.random() * 1 + 1.2) + "em";
@@ -122,7 +138,6 @@
         const frase = frases[Math.floor(Math.random() * frases.length)];
         crearElemento("palabra", frase);
       }
-
       for (let i = 0; i < 10; i++) {
         const corazon = corazones[Math.floor(Math.random() * corazones.length)];
         crearElemento("corazon", corazon, {
@@ -132,8 +147,8 @@
       }
     }
 
-    // 💥 EXPLOSIÓN AL CLIC
     document.addEventListener("click", (e) => {
+      if (!esVertical()) return;
       for (let i = 0; i < 10; i++) {
         const expl = document.createElement("div");
         expl.className = "explosion";
@@ -145,8 +160,34 @@
       }
     });
 
-    setInterval(lanzarLluvia, 1500);
-    lanzarLluvia();
+    function esVertical() {
+      return window.innerHeight > window.innerWidth;
+    }
+
+    function manejarOrientacion() {
+      const mensaje = document.getElementById("mensajeOrientacion");
+      if (esVertical()) {
+        mensaje.style.display = "none";
+        if (!intervaloLluvia) {
+          lanzarLluvia();
+          intervaloLluvia = setInterval(lanzarLluvia, 1500);
+        }
+      } else {
+        mensaje.style.display = "block";
+        clearInterval(intervaloLluvia);
+        intervaloLluvia = null;
+        limpiarLluvia();
+      }
+    }
+
+    function limpiarLluvia() {
+      document.querySelectorAll(".palabra, .corazon").forEach(el => el.remove());
+    }
+
+    // Detectar cambios de orientación
+    window.addEventListener("resize", manejarOrientacion);
+    manejarOrientacion(); // Llamada inicial
+
   </script>
 </body>
 </html>
